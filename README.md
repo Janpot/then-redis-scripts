@@ -1,4 +1,10 @@
-#then-redis-scripts
+#then-redis-scripts [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+
+[travis-url]: http://travis-ci.org/Janpot/then-redis-scripts
+[travis-image]: http://img.shields.io/travis/Janpot/then-redis-scripts.svg?style=flat
+
+[depstat-url]: https://david-dm.org/Janpot/then-redis-scripts
+[depstat-image]: http://img.shields.io/david/Janpot/then-redis-scripts.svg?style=flat
 
 Script runner for the [then-redis](https://www.npmjs.com/package/then-redis) package.
 This package loads scripts from the file system and caches them. Then uses EVALSHA to execute them.
