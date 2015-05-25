@@ -4,7 +4,9 @@ var redisScripts = require('..');
 
 describe('then-redis-scripts', function () {
 
-  var client = redis.createClient(require('./config'));
+  var client = redis.createClient({
+    host: process.env.REDIS_HOST
+  });
 
   beforeEach(function () {
     return client.flushall();
