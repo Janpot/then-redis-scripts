@@ -1,6 +1,6 @@
 {
   "name": "then-redis-scripts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Script runner for then-redis",
   "main": "lib",
   "scripts": {
