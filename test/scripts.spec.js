@@ -79,4 +79,29 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should handle shared scripts', function () {
+    var scripts = redisScripts(client, {
+      shared: __dirname + '/lua/init-variable.lua'
+    });
+    return scripts.run(__dirname + '/lua/read-variable.lua')
+      .then(function (value) {
+        assert.strictEqual(value, 'value');
+      });
+  });
+
+  // lua errors are not normalized, need to figure out how to handle call stack
+  it.skip('should detect error in shared script', function () {
+    var sharedPath = __dirname + '/lua/script-error.lua';
+    var scripts = redisScripts(client, {
+      shared: sharedPath
+    });
+    return scripts.run(__dirname + '/lua/get-key.lua')
+      .then(function () {
+        assert(false, 'Expected to fail');
+      }, function (err) {
+        var i = err.message.indexOf('(call to ' + sharedPath + ')');
+        assert.operator(i, '>=', 0);
+      });
+  });
+
 });
