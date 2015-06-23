@@ -104,4 +104,41 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should handle relative paths', function () {
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua'
+    });
+    return client.set('test', 'value')
+      .then(function () {
+        return scripts.run('get-key.lua', [ 'test' ]);
+      })
+      .then(function (result) {
+        assert.strictEqual(result, 'value');
+      });
+  });
+
+  it('should handle absolute paths with base set', function () {
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua'
+    });
+    return client.set('test', 'value')
+      .then(function () {
+        return scripts.run(__dirname + '/lua/get-key.lua', [ 'test' ]);
+      })
+      .then(function (result) {
+        assert.strictEqual(result, 'value');
+      });
+  });
+
+  it('should handle relative paths in shared script', function () {
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua',
+      shared: 'init-variable.lua'
+    });
+    return scripts.run('read-variable.lua')
+      .then(function (value) {
+        assert.strictEqual(value, 'value');
+      });
+  });
+
 });

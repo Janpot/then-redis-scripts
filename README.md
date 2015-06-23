@@ -33,7 +33,8 @@ scripts.run(__dirname + 'my-lua-script.lua', [ 'key' ], [ 'argv1', 'argv2' ])
 
 Builds a script runner for a certain `then-redis` client.
 
-`options.shared`: path to a script that should be prpended to of every loaded script.
+- `options.base`: Base folder for relative paths.
+- `options.shared`: path to a script that should be prepended to of every loaded script.
 
 `scripts.run(path, [keys], [argv]`
 
