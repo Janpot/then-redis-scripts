@@ -117,6 +117,18 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should detect compile errors', function () {
+    var path = __dirname + '/lua/compile-error.lua';
+    var scripts = redisScripts(client);
+    return scripts.run(path)
+      .then(function () {
+        assert(false, 'Expected to fail');
+      }, function (err) {
+        var i = err.message.indexOf(path + ':1');
+        assert.operator(i, '>=', 0);
+      });
+  });
+
   it('should handle relative paths', function () {
     var scripts = redisScripts(client, {
       base: __dirname + '/lua'
