@@ -51,7 +51,7 @@ describe('then-redis-scripts', function () {
       .then(function () {
         assert(false, 'Expected to fail');
       }, function (err) {
-        var i = err.message.indexOf('(call to ' + path + ')');
+        var i = err.message.indexOf(path + ':1');
         assert.operator(i, '>=', 0);
       });
   });
@@ -89,8 +89,21 @@ describe('then-redis-scripts', function () {
       });
   });
 
-  // lua errors are not normalized, need to figure out how to handle call stack
-  it.skip('should detect error in shared script', function () {
+  it('should detect error with shared script', function () {
+    var path = __dirname + '/lua/script-error.lua';
+    var scripts = redisScripts(client, {
+      shared: __dirname + '/lua/init-variable.lua'
+    });
+    return scripts.run(path)
+      .then(function () {
+        assert(false, 'Expected to fail');
+      }, function (err) {
+        var i = err.message.indexOf(path + ':2');
+        assert.operator(i, '>=', 0);
+      });
+  });
+
+  it('should detect error in shared script', function () {
     var sharedPath = __dirname + '/lua/script-error.lua';
     var scripts = redisScripts(client, {
       shared: sharedPath
@@ -99,7 +112,7 @@ describe('then-redis-scripts', function () {
       .then(function () {
         assert(false, 'Expected to fail');
       }, function (err) {
-        var i = err.message.indexOf('(call to ' + sharedPath + ')');
+        var i = err.message.indexOf(sharedPath + ':2');
         assert.operator(i, '>=', 0);
       });
   });
