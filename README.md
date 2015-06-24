@@ -49,9 +49,7 @@ path to a script that should be prepended to of every script that is run.
 
 <hr>
 
-#### `ScriptRunner`
-
-##### `.run(String path, [Array<String> keys], [Array<String> argv])`
+##### `scripts.run(String path, [Array<String> keys], [Array<String> argv])`
 
 **Returns:** `Promise<dynamic>`
 
