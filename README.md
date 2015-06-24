@@ -19,25 +19,42 @@ var redis = require('then-redis');
 var redisScripts = require('then-redis-scripts');
 
 var client = redis.createClient();
-var scripts = redisScripts(client);
+var scripts = redisScripts(client, {
+  base: __dirname + '/lua'
+});
 
-scripts.run(__dirname + 'my-lua-script.lua', [ 'key' ], [ 'argv1', 'argv2' ])
+scripts.run('my-lua-script', [ 'key' ], [ 'argv1', 'argv2' ])
   .then(function (result) {
     console.log(result);
   });
 ```
 
+Assuming there is a script `.../lua/my-lua-script.lua`
+
 ## API
 
-`var scripts = redisScripts(client, [options])`
+##### `var scripts = redisScripts(RedisClient client, [Object options])`
+
+**Returns:** `ScriptRunner`
 
 Builds a script runner for a certain `then-redis` client.
 
-- `options.base`: Base folder for relative paths.
-- `options.shared`: path to a script that should be prepended to of every loaded script.
+###### Option `String base`
 
-`scripts.run(path, [keys], [argv]`
+Base folder for relative paths.
 
-Runs a script at `path`. `keys` and `argv` can optionally be passed as `KEYS` and `ARGV` variables in lua.
+###### Option `String shared`
+
+path to a script that should be prepended to of every script that is run.
+
+#### `ScriptRunner`
+
+##### `.run(String path, [Array<String> keys], [Array<String> argv])`
+
+**Returns:** `Promise<dynamic>`
+
+Runs a script at `path`. The path is resolved against the base dir.
+`.lua` extension is automatically added when not specified.
+`keys` and `argv` can be passed as `KEYS` and `ARGV` variables in the script.
 
 

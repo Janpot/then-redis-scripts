@@ -130,6 +130,17 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should handle .lua extension', function () {
+    var scripts = redisScripts(client);
+    return client.set('test', 'value')
+      .then(function () {
+        return scripts.run(__dirname + '/lua/get-key', [ 'test' ]);
+      })
+      .then(function (result) {
+        assert.strictEqual(result, 'value');
+      });
+  });
+
   it('should handle absolute paths with base set', function () {
     var scripts = redisScripts(client, {
       base: __dirname + '/lua'
