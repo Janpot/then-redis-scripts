@@ -8,7 +8,7 @@
 
 Script runner for the [then-redis](https://www.npmjs.com/package/then-redis) package.
 This package loads scripts from the file system and caches them. Then uses EVALSHA to execute them.
-Automatically reloads the script when it is removed from the db (SCRIP FLUSH).
+Automatically reloads the script when it is removed from the db (`SCRIPT FLUSH`).
 
 [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
