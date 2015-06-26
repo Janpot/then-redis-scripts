@@ -189,4 +189,26 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should handle shared script input', function () {
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua',
+      shared: {
+        path: 'shared-inputs-1',
+        keys: ['key1', 'key2'],
+        argv: ['value1']
+      }
+    });
+    return scripts.run('shared-inputs-2', ['key3'], ['value2', 'value3'])
+      .then(function (results) {
+        assert.deepEqual(results, [
+          'key1',
+          'key2',
+          'key3',
+          'value1',
+          'value2',
+          'value3'
+        ]);
+      });
+  });
+
 });

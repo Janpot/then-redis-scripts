@@ -1,3 +1,7 @@
+## 1.4.0
+
+ - Add `keys` and `argv` options to shared scripts.
+
 ## 1.3.0
 
  - Infer .lua extension

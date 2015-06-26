@@ -45,10 +45,13 @@ Base folder for relative paths.
 
 ###### Option `String|Object shared`
 
-Either the path to a script that should be prepended to of every script that is run.
-Or an object with the following properties:
+Either the path to a script that should be prepended to every script that is run.
 
- - `path`: The path to a script that should be prepended to of every script that is run.
+Or an object with following properties:
+
+ - `String path`: path to the shared script.
+ - `Array<String> keys`: Optional array containg KEYS for the shared script.
+ - `Array<String> argv`: Optional array containing ARGV for the shared script.
 
 <hr>
 
