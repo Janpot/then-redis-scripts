@@ -89,6 +89,18 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should handle shared scripts as object', function () {
+    var scripts = redisScripts(client, {
+      shared: {
+        path: __dirname + '/lua/init-variable.lua'
+      }
+    });
+    return scripts.run(__dirname + '/lua/read-variable.lua')
+      .then(function (value) {
+        assert.strictEqual(value, 'value');
+      });
+  });
+
   it('should detect error with shared script', function () {
     var path = __dirname + '/lua/script-error.lua';
     var scripts = redisScripts(client, {

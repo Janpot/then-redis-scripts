@@ -43,9 +43,12 @@ Builds a script runner for a certain `then-redis` client.
 
 Base folder for relative paths.
 
-###### Option `String shared`
+###### Option `String|Object shared`
 
-path to a script that should be prepended to of every script that is run.
+Either the path to a script that should be prepended to of every script that is run.
+Or an object with the following properties:
+
+ - `path`: The path to a script that should be prepended to of every script that is run.
 
 <hr>
 
