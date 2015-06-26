@@ -1,4 +1,4 @@
-#then-redis-scripts
+# then-redis-scripts
 
 [travis-url]: http://travis-ci.org/Janpot/then-redis-scripts
 [travis-image]: http://img.shields.io/travis/Janpot/then-redis-scripts.svg?style=flat
