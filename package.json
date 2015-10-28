@@ -1,7 +1,7 @@
 {
   "name": "then-redis-scripts",
   "version": "2.0.0",
-  "description": "Script runner for then-redis",
+  "description": "Script runner for redis",
   "main": "lib",
   "scripts": {
     "test": "mocha ./test",
