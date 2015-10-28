@@ -5,7 +5,7 @@
   "main": "lib",
   "scripts": {
     "test": "mocha ./test",
-    "test-b2d": "REDIS_HOST=192.168.59.103 npm test"
+    "test-b2d": "REDIS_HOST=192.168.99.100 npm test"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   },
   "keywords": [
     "redis",
-    "then-redis",
     "promise",
     "scripts",
     "script"
@@ -25,12 +24,11 @@
   },
   "homepage": "https://github.com/Janpot/the-redis-scripts#readme",
   "devDependencies": {
-    "chai": "^2.3.0",
+    "chai": "^3.4.0",
     "mocha": "^2.2.5",
-    "redis": "^0.12.1",
-    "then-redis": "^1.3.0"
+    "redis": "^2.2.5"
   },
   "dependencies": {
-    "bluebird": "^2.9.25"
+    "bluebird": "^3.0.0"
   }
 }

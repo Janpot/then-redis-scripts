@@ -1,6 +1,10 @@
-var redis = require('then-redis');
+var Promise = require('bluebird');
+var redis = require('redis');
 var assert = require('chai').assert;
 var redisScripts = require('..');
+
+Promise.promisifyAll(redis.RedisClient.prototype);
+Promise.promisifyAll(redis.Multi.prototype);
 
 describe('then-redis-scripts', function () {
 
@@ -9,14 +13,14 @@ describe('then-redis-scripts', function () {
   });
 
   beforeEach(function () {
-    return client.flushall();
+    return client.flushallAsync();
   });
 
   it('should run a script', function () {
     return redisScripts(client)
       .run(__dirname + '/lua/set-key.lua', [ 'test' ], [ 'value' ])
       .then(function (result) {
-        return client.get('test');
+        return client.getAsync('test');
       })
       .then(function (value) {
         assert.strictEqual(value, 'value');
@@ -24,7 +28,7 @@ describe('then-redis-scripts', function () {
   });
 
   it('should return a script result', function () {
-    return client.set('test', 'value')
+    return client.setAsync('test', 'value')
       .then(function () {
         return redisScripts(client)
           .run(__dirname + '/lua/get-key.lua', [ 'test' ]);
@@ -59,12 +63,18 @@ describe('then-redis-scripts', function () {
   it('should handle script flush', function () {
     var path = __dirname + '/lua/get-key.lua';
     var scripts = redisScripts(client);
-    return scripts.run(path, ['test'])
+    return client.setAsync('test', 'value')
       .then(function () {
-        return client.script('flush');
+        return scripts.run(path, ['test']);
+      })
+      .then(function () {
+        return client.scriptAsync('flush');
       })
       .then(function () {
         return scripts.run(path, ['test']);
+      })
+      .then(function (result) {
+        assert.strictEqual(result, 'value');
       });
   });
 
@@ -145,7 +155,7 @@ describe('then-redis-scripts', function () {
     var scripts = redisScripts(client, {
       base: __dirname + '/lua'
     });
-    return client.set('test', 'value')
+    return client.setAsync('test', 'value')
       .then(function () {
         return scripts.run('get-key.lua', [ 'test' ]);
       })
@@ -156,7 +166,7 @@ describe('then-redis-scripts', function () {
 
   it('should handle .lua extension', function () {
     var scripts = redisScripts(client);
-    return client.set('test', 'value')
+    return client.setAsync('test', 'value')
       .then(function () {
         return scripts.run(__dirname + '/lua/get-key', [ 'test' ]);
       })
@@ -169,7 +179,7 @@ describe('then-redis-scripts', function () {
     var scripts = redisScripts(client, {
       base: __dirname + '/lua'
     });
-    return client.set('test', 'value')
+    return client.setAsync('test', 'value')
       .then(function () {
         return scripts.run(__dirname + '/lua/get-key.lua', [ 'test' ]);
       })

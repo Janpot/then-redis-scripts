@@ -6,7 +6,7 @@
 [depstat-url]: https://david-dm.org/Janpot/then-redis-scripts
 [depstat-image]: http://img.shields.io/david/Janpot/then-redis-scripts.svg?style=flat
 
-Script runner for the [then-redis](https://www.npmjs.com/package/then-redis) package.
+Script runner for the [redis](https://www.npmjs.com/package/redis) package.
 This package loads scripts from the file system and caches them. Then uses EVALSHA to execute them.
 Automatically reloads the script when it is removed from the db (`SCRIPT FLUSH`).
 
@@ -15,7 +15,7 @@ Automatically reloads the script when it is removed from the db (`SCRIPT FLUSH`)
 ## Usage:
 
 ```js
-var redis = require('then-redis');
+var redis = require('redis');
 var redisScripts = require('then-redis-scripts');
 
 var client = redis.createClient();
@@ -37,7 +37,7 @@ Assuming there is a script `.../lua/my-lua-script.lua`
 
 **Returns:** `ScriptRunner`
 
-Builds a script runner for a certain `then-redis` client.
+Builds a script runner for a certain `redis` client.
 
 ###### Option `String base`
 

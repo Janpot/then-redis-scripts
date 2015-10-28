@@ -1,3 +1,9 @@
+# Changelog
+
+## 2.0.0
+
+ - Use `redis` package instead of `then-redis`
+
 ## 1.4.0
 
  - Add `keys` and `argv` options to shared scripts.
