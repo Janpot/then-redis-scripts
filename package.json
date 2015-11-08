@@ -1,6 +1,6 @@
 {
   "name": "then-redis-scripts",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Script runner for redis",
   "main": "lib",
   "scripts": {
