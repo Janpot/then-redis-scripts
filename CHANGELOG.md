@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+ - Make script cache really global.
+
 ## 2.0.0
 
  - Use `redis` package instead of `then-redis`
