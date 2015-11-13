@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+ - Calculate keys and arguments dynamically.
+
 ## 2.1.0
 
  - Make script cache really global.

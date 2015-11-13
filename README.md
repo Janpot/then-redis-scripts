@@ -50,8 +50,10 @@ Either the path to a script that should be prepended to every script that is run
 Or an object with following properties:
 
  - `String path`: path to the shared script.
- - `Array<String> keys`: Optional array containg KEYS for the shared script.
- - `Array<String> argv`: Optional array containing ARGV for the shared script.
+ - `Array<String> keys`: Optional array containg KEYS for the shared script. If this array conatins a function it will be executed to obtain the value for a key each time the script is run.
+ - `Array<String> argv`: Optional array containing ARGV for the shared script. If this array conatins a function it will be executed to obtain the value for an argument each time the script is run.
+
+ Calculating shared arguments on the fly can be useful when you want to pass a timestamp or a random seed for instance.
 
 <hr>
 

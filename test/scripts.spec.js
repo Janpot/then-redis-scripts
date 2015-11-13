@@ -404,4 +404,80 @@ describe('then-redis-scripts', function () {
       });
   });
 
+  it('should calculate keys', function () {
+    var redisScripts = require('..');
+    var scripts = redisScripts(client, { base: __dirname + '/lua' });
+    return scripts.run('echo-keys', [
+      function () {
+        return 'the key';
+      }
+    ])
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the key');
+      });
+  });
+
+  it('should calculate argv', function () {
+    var redisScripts = require('..');
+    var scripts = redisScripts(client, { base: __dirname + '/lua' });
+    return scripts.run('echo-argv', [], [
+      function () {
+        return 'the arg';
+      }
+    ])
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the arg');
+      });
+  });
+
+  it('should calculate shared keys', function () {
+    var redisScripts = require('..');
+    var i = 0;
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua',
+      shared: {
+        path: 'store-keys',
+        keys: [
+          function () {
+            i += 1;
+            return 'the key ' + i;
+          }
+        ]
+      }
+    });
+    return scripts.run('echo-memory')
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the key 1');
+        return scripts.run('echo-memory');
+      })
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the key 2');
+      });
+  });
+
+  it('should calculate shared argv', function () {
+    var redisScripts = require('..');
+    var i = 0;
+    var scripts = redisScripts(client, {
+      base: __dirname + '/lua',
+      shared: {
+        path: 'store-argv',
+        argv: [
+          function () {
+            i += 1;
+            return 'the arg ' + i;
+          }
+        ]
+      }
+    });
+    return scripts.run('echo-memory')
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the arg 1');
+        return scripts.run('echo-memory');
+      })
+      .then(function (result) {
+        assert.strictEqual(result[0], 'the arg 2');
+      });
+  });
 });
+
