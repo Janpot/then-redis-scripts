@@ -1,10 +1,10 @@
 # then-redis-scripts
 
-[travis-url]: http://travis-ci.org/Janpot/then-redis-scripts
-[travis-image]: http://img.shields.io/travis/Janpot/then-redis-scripts.svg?style=flat
+[travis-url]: https://travis-ci.org/Janpot/then-redis-scripts
+[travis-image]: https://img.shields.io/travis/Janpot/then-redis-scripts.svg?style=flat
 
 [depstat-url]: https://david-dm.org/Janpot/then-redis-scripts
-[depstat-image]: http://img.shields.io/david/Janpot/then-redis-scripts.svg?style=flat
+[depstat-image]: https://img.shields.io/david/Janpot/then-redis-scripts.svg?style=flat
 
 Script runner for the [redis](https://www.npmjs.com/package/redis) package.
 This package loads scripts from the file system and caches them. Then uses EVALSHA to execute them.
